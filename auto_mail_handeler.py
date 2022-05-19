@@ -12,11 +12,11 @@ failed_counter = 0
 message = ""
 port = 465  # For SSL
 smtp_server = "smtp.gmail.com"
+load_dotenv('.env')
 #credentials
 username = os.environ.get("email_sender") #"tb.token.dealer@gmail.com"
 #password
-load_dotenv('.env')
-app_password = password = base64.b64decode(os.environ.get("password")).decode("utf-8")
+app_password = base64.b64decode(os.environ.get("password")).decode("utf-8")
 #mail reciver
 mail_reciever = os.environ.get("email_reciever") #"edin.grech@gmail.com"
 gmail_host= 'imap.gmail.com'

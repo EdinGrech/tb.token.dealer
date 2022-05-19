@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 import base64
 import auto_mail_handeler
+import socket
 
 #print(base64.b64encode("password".encode("utf-8")))
 #print(base64.b64decode("cGFzc3dvcmQ=").decode("utf-8"))
@@ -44,4 +45,6 @@ def newDevice(deviceName):
         return jsonify({ "error": response["message"] }), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    ip = socket.gethostbyname(socket.gethostname())
+    print(ip)
+    app.run(debug=True,host = ip)
