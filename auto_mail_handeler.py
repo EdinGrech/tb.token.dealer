@@ -13,12 +13,12 @@ message = ""
 port = 465  # For SSL
 smtp_server = "smtp.gmail.com"
 #credentials
-username ="tb.token.dealer@gmail.com"
+username = os.environ.get("email_sender") #"tb.token.dealer@gmail.com"
 #password
 load_dotenv('.env')
 app_password = password = base64.b64decode(os.environ.get("password")).decode("utf-8")
 #mail reciver
-mail_reciever = "edin.grech@gmail.com"
+mail_reciever = os.environ.get("email_reciever") #"edin.grech@gmail.com"
 gmail_host= 'imap.gmail.com'
 #set connection
 mail = imaplib.IMAP4_SSL(gmail_host)

@@ -10,8 +10,8 @@ import auto_mail_handeler
 #print(base64.b64decode("cGFzc3dvcmQ=").decode("utf-8"))
 
 load_dotenv('.env')
-email = os.environ.get("email")
-password = base64.b64decode(os.environ.get("password")).decode("utf-8")
+email = os.environ.get("tb_email_login")
+password = base64.b64decode(os.environ.get("tb_email_login_password")).decode("utf-8")
 
 app = Flask(__name__)
 tbapi_url = "https://demo.thingsboard.io:443"
