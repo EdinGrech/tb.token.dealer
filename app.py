@@ -31,7 +31,10 @@ def newDevice(deviceName):
             return jsonify({"error": "No new mail"})
         else:
             if message == verification_str:
-                tbapi.add_device(device_name=deviceName, device_type=None, shared_attributes=None, server_attributes=None)
+                try:
+                    tbapi.add_device(device_name=deviceName, device_type=None, shared_attributes=None, server_attributes=None)
+                except:
+                    return jsonify({"error": "Device already exists"}),400
                 token = tbapi.get_device_token(tbapi.get_devices_by_name(deviceName))
                 return jsonify({ "token": token }), 200
             else:
