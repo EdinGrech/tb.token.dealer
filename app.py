@@ -1,5 +1,7 @@
 from requests.exceptions import HTTPError
 from flask import Flask, jsonify
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import TbApi
 from dotenv import load_dotenv
 import os
@@ -7,18 +9,22 @@ import base64
 import auto_mail_handeler
 import socket
 
-#print(base64.b64encode("password".encode("utf-8")))
-#print(base64.b64decode("cGFzc3dvcmQ=").decode("utf-8"))
-
 load_dotenv('.env')
 email = os.environ.get("tb_email_login")
 password = base64.b64decode(os.environ.get("tb_email_login_password")).decode("utf-8")
 
 app = Flask(__name__)
+
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"])
+
 tbapi_url = "https://demo.thingsboard.io:443"
 tbapi = TbApi.TbApi(tbapi_url, email, password)
 
 @app.route("/deviceName/<string:deviceName>")
+@limiter.limit("3 per minute")
 def newDevice(deviceName):
     try:
         auto_mail_handeler.setTimeVerification()
